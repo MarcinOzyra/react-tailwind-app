@@ -6,17 +6,15 @@ function App() {
   const [entries, setEntries] = useState([]);
 
   const addEntryHandler = (entry) => {
-    setEntries((prevValue) => {
-      const updateEntries = [...entries];
-      updateEntries.push({ id: Math.random().toString(), entry: entry });
-      return updateEntries;
+    setEntries((prevEntries) => {
+      return [...prevEntries, { id: Math.random().toString(), entry: entry }];
     });
   };
 
   return (
     <>
       <Form addEntryHandler={addEntryHandler} />
-      <Entries entries={entries} />
+      {entries.length > 0 && <Entries entries={entries} />}
     </>
   );
 }

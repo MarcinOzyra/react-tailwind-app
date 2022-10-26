@@ -23,7 +23,7 @@ const Form = (props) => {
       setErrorMessage('Please enter a valid name and age (non-empty values).');
       return;
     }
-    if (isNaN(age) || age < 0) {
+    if (isNaN(age) || +age < 0) {
       setModalVisibility(true);
       setErrorMessage('Please enter a valid number greater than zero.');
       return;
@@ -43,16 +43,20 @@ const Form = (props) => {
     <>
       <form onSubmit={formSubmitHandler} className="w-1/2 mx-auto mt-12">
         <div className="flex flex-col gap-2 p-4 bg-white rounded-2xl">
-          <label className="text-2xl">Username</label>
-          <input type="text" value={userName} onChange={userNameInputChangeHandler} className="border p-2 rounded-md" />
-          <label className="text-2xl">Age (Years)</label>
-          <input type="text" value={age} onChange={ageInputChangeHandler} className="border p-2 rounded-md" />
+          <label htmlFor="username" className="text-2xl">
+            Username
+          </label>
+          <input type="text" id="username" value={userName} onChange={userNameInputChangeHandler} className="border p-2 rounded-md" />
+          <label htmlFor="age" className="text-2xl">
+            Age (Years)
+          </label>
+          <input type="text" id="age" value={age} onChange={ageInputChangeHandler} className="border p-2 rounded-md" />
           <button type="submit" className="mr-auto mt-2 py-2 px-6 bg-purple-500 text-white rounded-md w-full md:w-auto">
             Add User
           </button>
         </div>
       </form>
-      <Modal modalVisibility={modalVisibility} errorMessage={errorMessage} hideModal={hideModal} />
+      {modalVisibility && <Modal modalVisibility={modalVisibility} errorMessage={errorMessage} hideModal={hideModal} />}
     </>
   );
 };
